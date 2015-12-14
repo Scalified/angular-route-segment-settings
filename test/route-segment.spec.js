@@ -23,34 +23,6 @@ describe('route segment', function () {
         $routeSegmentProvider = _$routeSegmentProvider_;
         $routingSettingsProvider = _$routingSettingsProvider_;
 
-        //$routeSegmentProvider
-        //    .when('/1', 'section-first')
-        //    .when('/2', 'section2')
-        //    .when('/2/X', 'section2.section21')
-        //    .when('/X-foo', 'section2.section21.section211')
-        //    .when('/Y', 'section2.section22')
-        //    .when('/2/:id', 'section2.section23')
-        //    .when('/2/:id/bar', 'section2.section23.section231')
-        //    .when('/invalid', 'invalid')
-        //    .when('/2/:id/invalid', 'section2.section23.invalid');
-        //
-        //$routeSegmentProvider
-        //    .segment('section-first', {test: 'A'})
-        //    .segment('section2', {test: 'B'})
-        //    .within()
-        //    .segment('section21', {test: 'C'})
-        //    .within()
-        //    .segment('section211', {test: 'E'})
-        //    .up()
-        //    .segment('section22', {test: 'D'})
-        //    .segment('section23', {test: 'F'});
-        //
-        //// Starting from the root again
-        //$routeSegmentProvider
-        //    .within('section2')
-        //    .within('section23')
-        //    .segment('section231', {test: 'G'});
-
         var routingConfig = {
             routes: {
                 'section-first': {
@@ -94,13 +66,14 @@ describe('route segment', function () {
                         bar: {
                             url: '/foo/:param*/bar'
                         },
-                        optionalBar:{
+                        optionalBar: {
                             url: '/foo/:param?/bar'
                         }
                     }
                 }
             }
         };
+
         $routingSettingsProvider.configure(routingConfig);
         $routeSegmentProvider.options.autoLoadTemplates = false;    // We don't want to perform any XHRs here
         $routeSegmentProvider.options.strictMode = true;
@@ -273,26 +246,6 @@ describe('route segment', function () {
             expect(url).toBe('/foo/bar');
         });
 
-        it('should get a route using injected $routeParams', inject(function ($routeParams) {
-            $routeParams.param1 = 'TEST1';
-            $routeParams.param2 = 'TEST2';
-
-            //$routeSegmentProvider.when('/foo/:param1/bar', 'foo.bar');
-            $routeSegmentProvider.when('/foo/:param1/bar/:param2', 'foo.bar.baz');
-
-            var url = $routeSegment.getSegmentUrl('foo.bar');
-            expect(url).toBe('/foo/TEST1/bar');
-
-            url = $routeSegment.getSegmentUrl('foo.bar', {param1: 'OVERRIDED1'});
-            expect(url).toBe('/foo/OVERRIDED1/bar');
-
-            url = $routeSegment.getSegmentUrl('foo.bar', {param2: 'OVERRIDED1'});
-            expect(url).toBe('/foo/TEST1/bar');
-
-            url = $routeSegment.getSegmentUrl('foo.bar.baz', {param1: 'OVERRIDED1'});
-            expect(url).toBe('/foo/OVERRIDED1/bar/TEST2');
-        }));
-
         it('should throw an error for unknown segment', function () {
             expect(function () {
                 $routeSegment.getSegmentUrl('unknown-segment');
@@ -307,14 +260,6 @@ describe('route segment', function () {
     });
 
     describe('filters', function () {
-
-        it('routeSegmentUrl', inject(function ($filter) {
-            spyOn($routeSegment, 'getSegmentUrl').and.returnValue('foo');
-            var params = {};
-
-            expect($filter('routeSegmentUrl')('URL', params)).toBe('foo');
-            expect($routeSegment.getSegmentUrl).toHaveBeenCalledWith('URL', params);
-        }));
 
         it('routeSegmentEqualsTo', inject(function ($filter) {
             $location.path('/1');
@@ -342,26 +287,5 @@ describe('route segment', function () {
             expect($filter('routeSegmentContains')('section2')).toBe(true);
             expect($filter('routeSegmentContains')('section21')).toBe(true);
         }));
-
-        it('routeSegmentParam', inject(function ($filter) {
-            $routeSegment.$routeParams.qux = 'quux';
-            expect($filter('routeSegmentParam')('qux')).toBe('quux');
-        }));
-
-        it('should expect the filters to be stateful and not cached', inject(function ($compile, $routeSegment, $rootScope) {
-            var elm = $('<div>{{"qux" | routeSegmentParam}}</div>'),
-                scope = $rootScope.$new();
-
-            $routeSegment.$routeParams.qux = 'quux';
-            $compile(elm)(scope);
-            scope.$apply();
-
-            expect(elm.text()).toBe('quux');
-
-            $routeSegment.$routeParams.qux = 'changed';
-            scope.$apply();
-
-            expect(elm.text()).toBe('changed');
-        }));
     });
-})
+});

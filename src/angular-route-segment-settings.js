@@ -1,6 +1,5 @@
 ﻿/**
  * angular-route-segment-settings 0.0.1
- * https://angular-route-segment.com
  * @author Sergey Siryk
  * @license MIT License http://opensource.org/licenses/MIT
  */
