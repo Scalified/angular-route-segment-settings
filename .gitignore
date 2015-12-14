@@ -1,0 +1,12 @@
+# Idea specific
+.idea
+*.iml
+*.ipr
+*.iws
+/out/
+.idea_modules/
+atlassian-ide-plugin.xml
+
+# bower & npm
+bower_components/
+node_modules/

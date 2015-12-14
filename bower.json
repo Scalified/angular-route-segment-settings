@@ -1,0 +1,34 @@
+{
+  "name": "angular-route-segment-settings",
+  "description": "Provides simplified routes declaration, dynamic route settings(template, controller) depending on route parameters.",
+  "main": [
+    "src/angular-route-segment-settings.js"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "keywords": [
+    "angular routing",
+    "angular route segment",
+    "route segment",
+    "angular route segment settings"
+  ],
+  "authors": [
+    "Sergey Siryk"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "angular-mocks": "~1.4.7",
+    "jquery": "~2.1.4"
+  },
+  "dependencies": {
+    "angular": "~1.4.7",
+    "angular-route": "~1.4.7",
+    "angular-route-segment": "~1.5.0"
+  },
+  "private": false
+}

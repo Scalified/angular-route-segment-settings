@@ -1,0 +1,35 @@
+{
+  "name": "angular-route-segment-settings",
+  "version": "0.0.1",
+  "description": "Extension for angular-route-segment routing library. Provides simplified routes declaration, dynamic route settings(template, controller) depending on route parameters.",
+  "main": "src/angular-route-segment-settings.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sqrter/angular-route-segment-settings.git"
+  },
+  "keywords": [
+    "angular",
+    "route",
+    "segment"
+  ],
+  "author": "Sergey Siryk",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sqrter/angular-route-segment-settings/issues"
+  },
+  "homepage": "https://github.com/sqrter/angular-route-segment-settings#readme",
+  "devDependencies": {
+    "bower": "^1.6.8",
+    "jasmine-core": "^2.3.4",
+    "karma": "^0.13.15",
+    "karma-jasmine": "^0.3.6",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "phantomjs": "^1.9.19"
+  },
+  "scripts": {
+    "pretest": "npm install",
+    "test": "karma start karma.conf.js",
+    "test-single-run": "karma start karma.conf.js  --single-run",
+    "postinstall": "bower install"
+  }
+}
