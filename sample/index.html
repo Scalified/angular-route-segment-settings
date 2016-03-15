@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
+    <script src="bower_components/angular-route-segment/build/angular-route-segment.js"></script>
+    <script src="bower_components/angular-route-segment-settings/src/angular-route-segment-settings.js"></script>
+    <script src="common/viewsFactory.js"></script>
+    <script src="routingConfig.js"></script>
+    <script src="app.js"></script>
+    <title>Angular route segment settings sample.</title>
+</head>
+<body>
+<div id="menu">
+    <a data-ng-href="#{{ 'sections' | routeSegmentUrl:{section: 'privateRest'} }}">Private REST API</a> |
+    <a data-ng-href="#{{ 'sections' | routeSegmentUrl:{section: 'publicRest'} }}">Public REST API</a> |
+    <a data-ng-href="#{{ 'sections' | routeSegmentUrl:{section: 'websocket'} }}">WebSockets API</a>
+</div>
+<div data-app-view-segment="0"></div>
+</body>
+</html>

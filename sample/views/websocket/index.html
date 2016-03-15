@@ -1,0 +1,15 @@
+<div data-app-view-segment="1">
+    <p>Websocket operations</p>
+    <pre>Data: {{data}}</pre>
+    <table border="1">
+        <tr>
+            <th>Type</th>
+            <th>Name</th>
+        </tr>
+        <tr data-ng-repeat="item in data">
+            <td data-ng-bind="item.type"></td>
+            <td data-ng-bind="item.name"></td>
+        </tr>
+    </table>
+
+</div>
