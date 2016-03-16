@@ -72,8 +72,8 @@ $routeSegmentProvider.
 ```
 
 It looks quite simple to understand, however, in case when there are hundreds of routes it would be nice to simplify
-the syntax. Firstly, we don't want to split "when" declarations and "segment" statements. It's really inconvenient to
-have them segregated. Second motivation is to get rid of repetitive "within()" and "up()" calls, and use some object
+the syntax. Firstly, we don't want to split `when` declarations and `segment` statements. It's really inconvenient to
+have them segregated. Second motivation is to get rid of repetitive `within()` and `up()` calls, and use some object
 oriented approach to denote the nesting. Let's look at this:
 
 ```javascript
@@ -136,7 +136,85 @@ So what we have now:
 
 Additional functionality
 --------
-TODO
+Sometimes it's needed to have a single segment, but to choose its template depending on some url parameter(s).
+It can be done using `mapping` functionality. Here's an simple usage example:
+
+```javascript
+    sections: {
+        url: 'sections/:type',
+        params: {
+            templateUrl: function($routingSettings) {
+                             return $routingSettings.getMappedValue('templateUrl');
+                         },
+            dependencies: ['type']
+        },
+
+        mapping: {
+            routeParam: 'type',
+            routeSettings: {
+                'section1': {templateUrl: 'views/section1.html'},
+                'section2': {templateUrl: 'views/section2.html'},
+                'section3': {templateUrl: 'views/section3.html'}
+            }
+        },
+```
+
+There is also a bit more complex case, when there are multiply parameters that must be considered when selecting
+template. For example, lets assume that we have documentation site with 3 sections: internalRest, externalRest,
+websockets. Each section has set of operations to describe. Both rest sections have the same view(template) for
+operation description page. But operations from websockets section have different view(template).
+In addition there are a lot of entities(DTOs) within every section. Every entity has the same template,
+without regard to section.
+
+Here is an example of how it can be configured using angular-route-segment-settings:
+
+```javascript
+    viewInfo: {
+        //section - internalRest, externalRest, websockets
+        //kind - operation, entity
+        //key - * (any key)
+        url: '/docs/:section/:kind/:key',
+        params: {
+            //ViewsFactory is global variable, look at previous example
+            templateUrl: ViewsFactory,
+            controller: 'controllers.viewInfo',
+            dependencies: ['section', 'kind', 'key']
+        },
+        mapping: {
+            routeParam: ['section', 'kind', 'key'],
+            //Note, that order matters here. First setting has most priority, last one - lower priority.
+            routeSettings: [
+                //if it's one of rest sections & operation page - choose restOperation.html template
+                {
+                    section: ['internalRest', 'externalRest'],
+                    kind: ['operations'],
+                    templateUrl: 'app/views/restOperation.html'
+                },
+                //if it's websockets section & current operation is 'connect' - choose restOperation.html
+                //This is so because 'connect' here is http based handshake request, therefore it has the same template
+                //as another rest operations.
+                {
+                    section: ['websockets'],
+                    kind: ['operations'],
+                    key: ['connect'],
+                    templateUrl: 'app/views/restOperation.html'
+                },
+                //if it's websockets section & operation page - choose wsOperation template
+                {
+                    section: ['websockets'],
+                    kind: ['operations'],
+                    templateUrl: 'app/views/wsOperation.html'
+                },
+                //entities are the same everywhere, so use entity.html when kind == 'entity'
+                {
+                    kind: ['entities'],
+                    templateUrl: 'app/views/entity.html'
+                }
+            ]
+        }
+    }
+}
+```
 
 License
 -------
