@@ -5,7 +5,7 @@ var app = angular.module('app', ['ngRoute', 'route-segment', 'view-segment', 'ro
         $routeSegmentProvider.options.autoLoadTemplates = true;
         $routingSettingsProvider.configure(routingConfig);
         $routeProvider
-            .otherwise({redirectTo: '/'});
+            .otherwise({redirectTo: '/home'});
     })
     .run(function ($rootScope) {
         'use strict';
@@ -16,18 +16,9 @@ var app = angular.module('app', ['ngRoute', 'route-segment', 'view-segment', 'ro
         });
     });
 
-app.controller('controllers.sections', function ($scope, $routeParams) {
+app.controller('controllers.app', function ($scope, $rootScope, $routeSegment, $routeParams) {
     'use strict';
-    var testData = function (section) {
-        switch (section) {
-            case 'privateRest':
-                return [{name: "getLogs", method: "GET"}];
-            case 'publicRest':
-                return [{name: "helloWorld", method: "POST"}];
-            case 'websocket':
-                return [{name: "connect", type: "HTTP Request"}, {name: "subscribe", type: "WSRequest"}];
-        }
-    };
-
-    $scope.data = testData($routeParams.section);
+    console.log("App controller started");
+    $rootScope.segment = $routeSegment;
+    $rootScope.params = $routeParams;
 });
