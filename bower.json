@@ -1,4 +1,5 @@
 {
+  "private": false,
   "name": "angular-route-segment-settings",
   "description": "Provides simplified routes declaration, dynamic route settings(template, controller) depending on route parameters.",
   "main": [
@@ -9,7 +10,8 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "sample"
   ],
   "keywords": [
     "angular routing",
@@ -22,13 +24,15 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "angular-mocks": "~1.4.7",
+    "angular-mocks": "~1.5.2",
     "jquery": "~2.1.4"
   },
   "dependencies": {
-    "angular": "~1.4.7",
-    "angular-route": "~1.4.7",
-    "angular-route-segment": "~1.5.0"
+    "angular": "~1.5.2",
+    "angular-route": "~1.5.2",
+    "angular-route-segment": "~1.5.1"
   },
-  "private": false
+  "resolutions": {
+    "angular": "~1.5.2"
+  }
 }

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="app" data-ng-controller="controllers.app">
+<head>
+    <meta charset="UTF-8">
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
+    <script src="bower_components/angular-route-segment/build/angular-route-segment.js"></script>
+    <script src="bower_components/angular-route-segment-settings/src/angular-route-segment-settings.js"></script>
+    <script src="common/viewsFactory.js"></script>
+    <script src="routingConfig.js"></script>
+    <script src="app.js"></script>
+    <title>Angular route segment settings sample.</title>
+</head>
+<body>
+<div id="menu">
+    <a data-ng-href="#/">Home</a> |
+    <a data-ng-href="#/section1">Section1</a> |
+    <a data-ng-href="#/section2">Section2</a>
+    <a data-ng-href="#/section3">Section3</a>
+</div>
+<div data-app-view-segment="0">
+    <p>Welcome to angular-route-segment-settings sample.</p>
+</div>
+<div>
+    <pre>Current segment: {{segment.name}}</pre>
+    <pre>Route params: {{segment.$routeParams}}</pre>
+</div>
+</body>
+</html>

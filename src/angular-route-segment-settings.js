@@ -113,8 +113,8 @@
                 };
 
                 function getParamFromRoute(param) {
-                    var result = $route.current.params[param];
-                    if (result) {
+                    var result = $route.current.params[param.replace('?','')];
+                    if (result || param[param.length - 1] === '?') {
                         return result;
                     } else {
                         throw new Error('Route mapping configuration for segment=' +
@@ -126,7 +126,7 @@
                 function getParamsFromRoute(params) {
                     var result = {};
                     for (var index in params) {
-                        result[params[index]] = getParamFromRoute(params[index]);
+                        result[params[index].replace('?','')] = getParamFromRoute(params[index]);
                     }
                     return result;
 
